@@ -43,7 +43,7 @@ Este projeto utiliza **regressão linear** para analisar os fatores que influenc
 - Histograma dos resíduos  
 - Teste de Shapiro-Wilk (p-valor < 0.05 → **rejeita H₀** → evidência de não normalidade)
 
-## 📊 Conclusões  
+### 6. 📊 Conclusões  
 - As variáveis `Anos_Educ_Superior`, `Tempo_Empresa` e `Ingles_Sim` influenciam significativamente o salário  
 - O modelo passou no teste de homocedasticidade  
 - O teste de normalidade dos resíduos indicou **leve desvio da normalidade**  
