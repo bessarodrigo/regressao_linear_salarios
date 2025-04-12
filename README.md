@@ -1,73 +1,45 @@
-# Análise de Fatores Influentes no Salário
-
-Este repositório contém uma análise detalhada dos fatores que influenciam os salários dos colaboradores de uma empresa. Técnicas de regressão linear múltipla foram utilizadas para identificar e quantificar a influência da educação superior, tempo na empresa, experiência em outras empresas e conhecimento de inglês sobre o salário dos colaboradores.
+## Sobre o Projeto
+Este projeto utiliza regressão linear para analisar os fatores que influenciam o salário de profissionais. A análise considera variáveis como educação, tempo de empresa e fluência em inglês, e é complementada por testes estatísticos que validam os pressupostos do modelo.
 
 ## Estrutura do Repositório
 
-- **base_salarios.xlsx**: Arquivo de dados utilizado para a análise.
-- **produtos_naturais.ipynb**: Script Python contendo todo o processo de análise, desde a importação e tratamento dos dados até a construção e interpretação do modelo de regressão.
-- **README.md**: Este arquivo, contendo a descrição do problema de negócio e instruções sobre como utilizar o repositório.
+- ├── data/ # Arquivos de dados originais
+- ├── notebooks/ # Análises exploratórias e modelagem
+- ├── src/ # Funções e módulos reutilizáveis
+- ├── README.md
+- └── requirements.txt
 
-## Instalação e Execução
+## Etapas do Projeto
+#### 1. 📦 Tratamento dos Dados
+- Remoção de colunas desnecessárias (como o número de identificação do funcionário)
+- Mudança nos nomes das colunas para deixar as variáveis mais intuitivas
+- Conversão de variáveis categóricas em dummies
+- Criação de colunas auxiliares (ex: intercepto)
 
-### Requisitos
+### 2. 🔍 Análise Univariada
+- Estatísticas descritivas para cada variável
+- Histogramas e boxplots para identificar outliers e avaliar o comportamento da amostra
 
-- Python 3.6 ou superior
-- Bibliotecas Python: numpy, pandas, matplotlib, seaborn, statsmodels, scipy
+### 3. 🔗 Análise Bivariada
+- Comparações entre a variável salário e variáveis explicativas
+- Correlações e gráficos de dispersão
 
-### Passos para Execução
+### 4. 📉 Modelo de Regressão
+- Avaliação dos coeficientes e significância estatística
+- Eliminação da variável `Tempo_Outras_Empresas` com base no p-valor (acima de 5%)
 
-1. Clone este repositório:
+### 5. 🧪 Diagnóstico do Modelo
+#### Homocedasticidade  
+- Gráfico dos resíduos padronizados  
+- Teste de White (p-valor > 5% = não rejeita H₀ → homocedasticidade)
+#### Normalidade dos Resíduos  
+- Histograma dos resíduos  
+- Teste de Shapiro-Wilk (p-valor > 5% = resíduos seguem distribuição normal)
 
-    ```bash
-    git clone https://github.com/bessarodrigo/regressao_linear_salarios.git
-    cd regressao_linear_salarios
-    ```
-
-2. Instale as bibliotecas necessárias:
-
-    ```bash
-    pip install numpy pandas matplotlib seaborn statsmodels scipy
-    ```
-
-3. Execute o script de análise:
-
-    ```bash
-    python analysis_script.py
-    ```
-
-## Descrição do Script
-
-### Importação e Tratamento dos Dados
-
-- Os dados são carregados a partir de um arquivo Excel (base_salarios.xlsx).
-- Colunas desnecessárias são removidas, e as colunas restantes são renomeadas para facilitar a análise.
-- Estatísticas descritivas e visualizações iniciais são criadas para entender melhor a distribuição dos dados.
-
-### Análise Exploratória
-
-- Histogramas e box plots são utilizados para explorar a distribuição dos salários.
-- Estatísticas descritivas são geradas para variáveis como anos de educação superior, tempo na empresa e tempo em outras empresas.
-- Um gráfico de barras é criado para mostrar a distribuição de pessoas que falam ou não falam inglês.
-
-### Análise Bidimensional
-
-- Gráficos de dispersão com linhas de tendência são criados para explorar a relação entre salário e outras variáveis (anos de educação superior, tempo na empresa e tempo em outras empresas).
-- Coeficientes de correlação de Pearson são calculados e exibidos nos gráficos.
-
-### Regressão Linear Múltipla
-
-- Variáveis dummy são criadas para a variável categórica `Ingles`.
-- Um modelo de regressão linear múltipla é ajustado utilizando as variáveis `Anos_Educ_Superior`, `Tempo_Empresa`, `Tempo_Outras_Empresas` e `Ingles_Sim`.
-- Com base nos resultados, variáveis não significativas são removidas, e o modelo é ajustado novamente.
-
-### Interpretação do Modelo
-
-- A equação do modelo é apresentada, e os coeficientes são interpretados para fornecer insights práticos sobre como cada fator influencia o salário dos colaboradores.
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+## 📊 Conclusões
+- As variáveis `Anos_Educ_Superior`, `Tempo_Empresa` e `Ingles_Sim` influenciam de forma significativa o salário
+- O modelo passou no teste de homocedasticidade
+- O teste de normalidade dos resíduos indicou leve desvio da normalidade
 
 ## Contato
 LinkedIn: https://www.linkedin.com/in/rodrigo-bessa/
