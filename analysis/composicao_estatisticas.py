@@ -137,3 +137,39 @@ def teste_f_variancias(amostra1, amostra2, nome1="Grupo 1", nome2="Grupo 2", alp
     print("=" * 50)
     
     return p_value_two_tailed
+
+def grafico_residuos(resultado):
+    """
+    Gera um gráfico de dispersão dos resíduos padronizados (resid_pearson)
+    de um modelo ajustado com statsmodels.
+
+    Parâmetros:
+    -----------
+    resultado : statsmodels.regression.linear_model.RegressionResultsWrapper
+        Resultado do ajuste do modelo OLS (ex: resultado = modelo.fit()).
+
+    Exibe:
+    ------
+    Um gráfico de dispersão com as linhas de referência em 0, -2 e +2.
+    """
+    residuos = resultado.resid_pearson
+    indices = list(range(len(residuos)))
+
+    plt.figure(figsize=(10, 5))
+    ax = sns.scatterplot(x=indices, y=residuos)
+
+    # Define os limites do eixo y considerando -3 e +3 como extremos esperados
+    ymin = min(min(residuos), -3) * 1.1
+    ymax = max(max(residuos), 3) * 1.1
+    ax.set(ylim=(ymin, ymax))
+
+    # Linhas de referência
+    ax.axhline(0, color='black', linestyle='--')
+    ax.axhline(2, color='black', linestyle='--')
+    ax.axhline(-2, color='black', linestyle='--')
+
+    ax.set_title("Gráfico de Resíduos Padronizados")
+    ax.set_xlabel("Observações")
+    ax.set_ylabel("Resíduos Padronizados")
+    plt.tight_layout()
+    plt.show()
