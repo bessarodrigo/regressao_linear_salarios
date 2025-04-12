@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
+import pandas as pd
+import numpy as np
 import os
 from scipy import stats
+from scipy.stats import mode, skew, kurtosis
 
 def composicao_histograma_boxplot(dataframe, coluna, intervalos="auto", titulo="Título do Gráfico", nome_arquivo="distribuicao.png", salvar=False):
     # Definir o caminho para a pasta 'images'
@@ -67,9 +69,6 @@ def composicao_histograma_boxplot(dataframe, coluna, intervalos="auto", titulo="
             print(f"Erro ao salvar o arquivo {caminho_arquivo}: {e}")
 
     plt.show()
-
-import numpy as np
-from scipy.stats import mode, skew, kurtosis
 
 # Função para calcular as estatísticas
 def calcular_estatisticas(amostra):
