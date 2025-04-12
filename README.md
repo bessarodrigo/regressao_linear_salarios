@@ -41,7 +41,7 @@ Este projeto utiliza **regressão linear** para analisar os fatores que influenc
 
 #### 📊 Normalidade dos Resíduos  
 - Histograma dos resíduos  
-- Teste de Shapiro-Wilk (p-valor < 0.05 → **rejeita H₀** → evidência de não-normalidade)
+- Teste de Shapiro-Wilk (p-valor < 0.05 → **rejeita H₀** → evidência de não normalidade)
 
 ## 📊 Conclusões  
 - As variáveis `Anos_Educ_Superior`, `Tempo_Empresa` e `Ingles_Sim` influenciam significativamente o salário  
