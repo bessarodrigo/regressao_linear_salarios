@@ -155,7 +155,7 @@ def grafico_residuos(resultado):
     residuos = resultado.resid_pearson
     indices = list(range(len(residuos)))
 
-    plt.figure(figsize=(10, 5))
+    plt.figure(figsize=(8, 4))
     ax = sns.scatterplot(x=indices, y=residuos)
 
     # Define os limites do eixo y considerando -3 e +3 como extremos esperados
