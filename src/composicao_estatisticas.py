@@ -7,6 +7,49 @@ from scipy import stats
 from scipy.stats import mode, skew, kurtosis
 
 def composicao_histograma_boxplot(dataframe, coluna, intervalos="auto", titulo="Título do Gráfico", nome_arquivo="distribuicao.png", salvar=False):
+    """
+    Cria uma visualização composta com boxplot (em cima) e histograma (embaixo) da distribuição de uma variável numérica.
+
+    O gráfico é útil para análise exploratória, permitindo visualizar a densidade da distribuição, presença de outliers, 
+    além de linhas de referência para média, mediana e moda. Opcionalmente, pode salvar o gráfico como imagem em uma pasta 'images'.
+
+    Parâmetros
+    ----------
+    dataframe : pandas.DataFrame
+        O DataFrame que contém os dados.
+
+    coluna : str
+        O nome da coluna numérica a ser analisada.
+
+    intervalos : int, str ou sequence, default="auto"
+        Define o número de bins (faixas) do histograma. Pode ser um inteiro ou um dos métodos aceitos pelo matplotlib/seaborn (ex: 'auto', 'fd', 'sturges').
+
+    titulo : str, default="Título do Gráfico"
+        Título exibido no topo do gráfico.
+
+    nome_arquivo : str, default="distribuicao.png"
+        Nome do arquivo a ser salvo, caso `salvar=True`.
+
+    salvar : bool, default=False
+        Se `True`, salva o gráfico na pasta "images" no diretório atual.
+
+    Outputs
+    -------
+    Exibe um gráfico composto contendo:
+    - Boxplot com média (linha tracejada) e mediana.
+    - Histograma com curva de densidade (KDE) e linhas de referência para média, mediana e moda.
+    
+    Além disso, se `salvar=True`, o gráfico será salvo como imagem no caminho `images/nome_arquivo`.
+
+    Exceções tratadas
+    -----------------
+    - Erro ao criar a pasta `images`.
+    - Erro ao salvar o gráfico.
+
+    Exemplo de uso
+    --------------
+    composicao_histograma_boxplot(df, "salario", titulo="Distribuição Salarial", salvar=True)
+    """
     # Definir o caminho para a pasta 'images'
     pasta_imagens = os.path.join(os.getcwd(), "images")
     
@@ -72,6 +115,49 @@ def composicao_histograma_boxplot(dataframe, coluna, intervalos="auto", titulo="
 
 # Função para calcular as estatísticas
 def calcular_estatisticas(amostra):
+    """
+    Calcula estatísticas descritivas de uma amostra numérica.
+
+    Esta função retorna medidas de tendência central, dispersão, assimetria, curtose e quartis, 
+    permitindo uma análise completa da distribuição dos dados.
+
+    Parâmetros
+    ----------
+    amostra : array-like
+        Vetor ou lista de valores numéricos (por exemplo, salários, idades, notas etc.).
+
+    Retorno
+    -------
+    dict
+        Um dicionário contendo as seguintes estatísticas:
+        
+        - 'Média': média aritmética da amostra
+        - 'Mediana': valor central da distribuição
+        - 'Moda': valor mais frequente (primeira moda, se múltiplas)
+        - 'Variância': variância amostral (ddof=1)
+        - 'Desvio Padrão': desvio padrão amostral (ddof=1)
+        - 'Assimetria': medida de simetria da distribuição
+        - 'Curtose': medida de cauda da distribuição (momento de curtose, não Fisher)
+        - '1º Quartil': percentil 25 da amostra
+        - '2º Quartil (Mediana)': percentil 50 da amostra (igual à mediana)
+        - '3º Quartil': percentil 75 da amostra
+
+    Notas
+    -----
+    - Caso a moda não seja encontrada (conjunto sem repetições), retorna `np.nan` para esse valor.
+    - A função utiliza a moda da biblioteca `scipy.stats.mode` com `keepdims=True` para manter a consistência do retorno.
+
+    Exemplo de uso
+    --------------
+    >>> dados = [10, 12, 14, 10, 18, 20, 10]
+    >>> calcular_estatisticas(dados)
+    {
+        'Média': 13.43,
+        'Mediana': 14.0,
+        'Moda': 10,
+        ...
+    }
+    """
     moda_result = mode(amostra, keepdims=True)  # Garantir que a moda é retornada como array
     estatisticas = {
         "Média": np.mean(amostra),
@@ -86,7 +172,6 @@ def calcular_estatisticas(amostra):
         "3º Quartil": np.percentile(amostra, 75)
     }
     return estatisticas
-
 
 def teste_f_variancias(amostra1, amostra2, nome1="Grupo 1", nome2="Grupo 2", alpha=0.05):
     print("=" * 50)
